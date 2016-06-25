@@ -5,8 +5,7 @@
  */
 package scrabble;
 
-import java.util.concurrent.ThreadLocalRandom;
-
+import java.util.Random;
 
 /**
  *
@@ -23,10 +22,11 @@ public class InputGenerator {
     }
     
     public String generateInput(){
-        StringBuilder stb = null;
-        
+        StringBuilder stb = new StringBuilder();
+        Random r = new Random();
+       
         for (int i = 0; i < count; i++){
-            stb.append(language.getAlphabet()[ThreadLocalRandom.current().nextInt(0, language.getAlphabet().length)]);
+            stb.append(language.getAlphabet()[r.nextInt(language.getAlphabet().length)]);
         }
         return stb.toString();
     }

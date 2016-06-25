@@ -5,6 +5,7 @@
  */
 package scrabble;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -34,21 +35,35 @@ public class Scrabble {
         
         System.out.println("Grabbing " + count + " tiles...");
         
-       
+        Language l = new English();
         
-        InputGenerator inputGenerator = new InputGenerator(count, new English());
+        InputGenerator inputGenerator = new InputGenerator(count, l);
         
         String input = inputGenerator.generateInput();
         
         System.out.println("You grabbed the following");
         System.out.println(input);
         
+        TileManufacturer tileManufacturer = new TileManufacturer(l);
+        Tile [] inPlayTiles = tileManufacturer.generateTiles();
+        Tile [] yourTiles = tileManufacturer.generatePlayerTiles();
         
+        InputChecker inputChecker = new InputChecker(input,inPlayTiles, yourTiles);
         
+        String success = inputChecker.checkAndDistribute();
+        if(!success.equals("Valid input")){
+            System.out.println(success);;
+            System.exit(2);
+        }
         
+        ArrayList<Tile []> allTiles = new ArrayList<>();
+        allTiles.add(yourTiles);
+        allTiles.add(inPlayTiles);
         
-        
-        
+        Displayer displayer = new Displayer(allTiles);
+        displayer.displayDistributionAndScores();
+     
+                
     }
     
 }

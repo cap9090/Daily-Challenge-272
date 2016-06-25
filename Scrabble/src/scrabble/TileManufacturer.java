@@ -26,6 +26,15 @@ public class TileManufacturer {
         return tiles;
     }
     
+    public Tile [] generatePlayerTiles(){
+        Tile [] tiles = new Tile[language.getCount()];
+        for (int i = 0 ; i < tiles.length; i++){
+            tiles[i] = new Tile(language.getAlphabet()[i], (byte)0, language.getValue()[i]);
+        }
+        return tiles;
+    }
+        
+    
     
     
     
